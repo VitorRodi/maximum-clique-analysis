@@ -1,0 +1,4 @@
+dist/
+results/
+docs/academic/
+package-lock.json
