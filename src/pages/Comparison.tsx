@@ -26,6 +26,14 @@ const colors: Record<AlgorithmId, string> = {
   localSearch: '#117453',
 }
 const { metadata, groups } = benchmark
+const sampling = `${metadata.seeds.length} sementes por configuração`
+
+const metricCaptions: Record<Metric, string> = {
+  medianMs: `Mediana em ${metadata.runtime} · ${sampling} · ${metadata.repetitions} repetições por instância`,
+  meanSize: `Média das cardinalidades por instância · ${sampling}`,
+  meanQuality: 'Qualidade percentual média nas instâncias com ótimo certificado',
+  meanGap: 'Desvio percentual médio nas instâncias com ótimo certificado',
+}
 
 function chartValue(metric: Metric, value: number) {
   if (metric === 'medianMs') return formatTime(value)
@@ -78,39 +86,42 @@ function ComparisonChart({
         {log ? ' · escala logarítmica' : ''}
       </p>
       {points.length ? (
-        <div className="chart">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={rows} margin={{ top: 14, right: 16, bottom: 6, left: 5 }}>
-              <CartesianGrid vertical={false} stroke="#dfe7ea" />
-              <XAxis dataKey="category" tick={{ fill: '#435768', fontSize: 12 }} />
-              <YAxis
-                scale={log ? 'log' : 'linear'}
-                domain={range}
-                width={76}
-                tick={{ fill: '#435768', fontSize: 11 }}
-                tickFormatter={(value: number) => chartValue(metric, value)}
-              />
-              <Tooltip
-                formatter={(value) => (typeof value === 'number' ? chartValue(metric, value) : '—')}
-              />
-              <Legend wrapperStyle={{ fontSize: '0.85rem' }} />
-              {algorithmIds.map((id, index) => (
-                <Line
-                  key={id}
-                  type="linear"
-                  dataKey={id}
-                  name={algorithmNames[id]}
-                  stroke={colors[id]}
-                  strokeWidth={2}
-                  strokeDasharray={index === 1 ? '5 4' : undefined}
-                  dot={{ r: 3 }}
-                  activeDot={{ r: 5 }}
-                  isAnimationActive={false}
+        <figure className="experiment-figure">
+          <div className="chart">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={rows} margin={{ top: 14, right: 16, bottom: 6, left: 5 }}>
+                <CartesianGrid vertical={false} stroke="#dfe7ea" />
+                <XAxis dataKey="category" tick={{ fill: '#435768', fontSize: 12 }} />
+                <YAxis
+                  scale={log ? 'log' : 'linear'}
+                  domain={range}
+                  width={76}
+                  tick={{ fill: '#435768', fontSize: 11 }}
+                  tickFormatter={(value: number) => chartValue(metric, value)}
                 />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+                <Tooltip
+                  formatter={(value) => (typeof value === 'number' ? chartValue(metric, value) : '—')}
+                />
+                <Legend wrapperStyle={{ fontSize: '0.85rem' }} />
+                {algorithmIds.map((id, index) => (
+                  <Line
+                    key={id}
+                    type="linear"
+                    dataKey={id}
+                    name={algorithmNames[id]}
+                    stroke={colors[id]}
+                    strokeWidth={2}
+                    strokeDasharray={index === 1 ? '5 4' : undefined}
+                    dot={{ r: 3 }}
+                    activeDot={{ r: 5 }}
+                    isAnimationActive={false}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <figcaption>{metricCaptions[metric]}.</figcaption>
+        </figure>
       ) : (
         <p className="chart-empty">
           O ótimo não foi certificado nesta faixa. Selecione até 20 vértices ou outra métrica.
@@ -131,8 +142,8 @@ export default function Comparison() {
       <div className="page-heading">
         <h1>Comparação experimental</h1>
         <p>
-          Benchmark em {metadata.runtime} {metadata.node}, com {metadata.seeds.length} sementes e{' '}
-          {metadata.repetitions} repetições por instância.
+          {metadata.sizes.length * metadata.densities.length * metadata.seeds.length} grafos aleatórios
+          avaliados em {metadata.runtime} {metadata.node}.
         </p>
       </div>
       <div className="panel experiment-controls">
@@ -169,14 +180,14 @@ export default function Comparison() {
       </div>
       <div className="experiment-charts">
         <ComparisonChart
-          title={`Por tamanho · ${formatPercent(100 * density)}`}
+          title={`Por número de vértices · p = ${formatPercent(100 * density)}`}
           x="n"
           axis={String(density)}
           values={metadata.sizes}
           metric={metric}
         />
         <ComparisonChart
-          title={`Por densidade · ${size} vértices`}
+          title={`Por densidade nominal · n = ${size}`}
           x="density"
           axis={String(size)}
           values={metadata.densities}
