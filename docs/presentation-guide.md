@@ -4,7 +4,7 @@
 - **Disciplina** Análise e Complexidade de Algoritmos
 - **Professor** Gabriel Henrique Moro
 
-Prepare o computador com `npm ci`. Antes de apresentar, rode `npm run build` e `npm run preview`. Abra o endereço de loopback do terminal. O laboratório inicia no exemplo do TPE e usa os dados já coletados em `results/`. Abra também o [relatório](academic/relatorio-implementacao.pdf).
+Prepare o computador com `npm ci`. Antes de apresentar, rode `npm run build` e `npm run preview`. Abra o endereço de loopback do terminal. O laboratório inicia no exemplo do TPE e usa os dados já coletados em `results/`. Deixe aberto também o [relatório integrado](academic/Relatorio_Integrado_Clique_Maxima.pdf).
 
 ## Sequência sugerida · 12 minutos
 
