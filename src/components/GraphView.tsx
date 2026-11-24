@@ -26,8 +26,8 @@ export function GraphView({
 }) {
   const container = useRef<HTMLDivElement>(null)
   const canvas = useRef<Core>(null)
-  const [selected, setSelected] = useState<string | null>(null)
-  const vertex = selected !== null && graph.vertices.includes(selected) ? selected : null
+  const [selected, setSelected] = useState<{ graph: Graph; name: string } | null>(null)
+  const vertex = selected?.graph === graph ? selected.name : null
 
   useEffect(() => {
     if (!container.current) return
@@ -100,7 +100,7 @@ export function GraphView({
       ],
     })
     canvas.current = cy
-    cy.on('tap', 'node', (event) => setSelected(event.target.data('name') as string))
+    cy.on('tap', 'node', (event) => setSelected({ graph, name: event.target.data('name') as string }))
     cy.on('tap', (event) => {
       if (event.target === cy) setSelected(null)
     })
@@ -152,7 +152,7 @@ export function GraphView({
           className="graph-canvas"
           ref={container}
           role="img"
-          aria-label={`Grafo com ${graph.size} vértices e ${graph.edgeCount} arestas. ${highlight.length ? `Clique em destaque: ${highlight.join(', ')}.` : ''}`}
+          aria-label={`Grafo com ${graph.size} ${graph.size === 1 ? 'vértice' : 'vértices'} e ${graph.edgeCount} ${graph.edgeCount === 1 ? 'aresta' : 'arestas'}.${highlight.length ? ` Clique em destaque: ${highlight.join(', ')}.` : ''}`}
         />
         {!graph.size && (
           <div className="graph-empty">Grafo vazio. Adicione um vértice para começar.</div>

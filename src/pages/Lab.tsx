@@ -108,12 +108,7 @@ export function Lab() {
               </p>
             }
           >
-            <GraphView
-              key={graph.vertices.join('\u0000') + name}
-              graph={graph}
-              tpe={preset === 'tpe'}
-              highlight={highlight}
-            />
+            <GraphView graph={graph} tpe={preset === 'tpe'} highlight={highlight} />
           </Suspense>
           <div className="trace">
             {focused?.clique ? (
