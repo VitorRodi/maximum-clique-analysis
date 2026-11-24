@@ -24,11 +24,13 @@ export function Lab() {
   const [time, setTime] = useState(String(DEFAULT_TIME_LIMIT_MS / 1_000))
   const [rounds, setRounds] = useState('')
   const [notice, setNotice] = useState('')
+  const [runFromGraph, setRunFromGraph] = useState(true)
   const { results, running, error, run, cancel, clear } = useExecution()
   const { graph, preset, name } = instance
   const focused = focus === null ? undefined : results[focus]
   const selectedStep = step === null ? undefined : focused?.steps[step]
   const highlight = selectedStep?.clique ?? focused?.clique ?? undefined
+  const hasResults = Object.keys(results).length > 0
 
   function choose(id: AlgorithmId | null) {
     setFocus(id)
@@ -36,6 +38,7 @@ export function Lab() {
   }
 
   function execute(ids: AlgorithmId[]) {
+    setRunFromGraph(ids.length > 1)
     const vertices = Number(exactLimit)
     const seconds = Number(time)
     const maxRounds = rounds === '' ? undefined : Number(rounds)
@@ -66,6 +69,19 @@ export function Lab() {
     run(ids, graph, { maxVertices: vertices, maxMilliseconds: seconds * 1000, maxRounds })
   }
 
+  const runFeedback = (
+    <>
+      {(notice || error) && (
+        <p className="error" role="alert">
+          {notice || error}
+        </p>
+      )}
+      <p className={running ? 'execution-status' : 'sr-only'} role="status">
+        {running ? 'Executando em segundo plano…' : hasResults ? 'Resultados atualizados.' : ''}
+      </p>
+    </>
+  )
+
   return (
     <>
       <div className="page-heading">
@@ -85,21 +101,38 @@ export function Lab() {
         />
         <section className="panel graph-panel" aria-labelledby="graph-name">
           <div className="panel-header">
-            <h2 id="graph-name">{name}</h2>
-            <dl className="graph-metrics">
-              <div>
-                <dt>Vértices</dt>
-                <dd>{graph.size}</dd>
-              </div>
-              <div>
-                <dt>Arestas</dt>
-                <dd>{graph.edgeCount}</dd>
-              </div>
-              <div>
-                <dt>Densidade</dt>
-                <dd>{formatPercent(100 * graph.density)}</dd>
-              </div>
-            </dl>
+            <div className="graph-heading">
+              <h2 id="graph-name">{name}</h2>
+              <dl className="graph-metrics">
+                <div>
+                  <dt>Vértices</dt>
+                  <dd>{graph.size}</dd>
+                </div>
+                <div>
+                  <dt>Arestas</dt>
+                  <dd>{graph.edgeCount}</dd>
+                </div>
+                <div>
+                  <dt>Densidade</dt>
+                  <dd>{formatPercent(100 * graph.density)}</dd>
+                </div>
+              </dl>
+            </div>
+            <div className="graph-run-actions">
+              <button
+                className="button primary"
+                type="button"
+                disabled={running}
+                onClick={() => execute(algorithmIds)}
+              >
+                Executar todos
+              </button>
+              {running && runFromGraph && (
+                <button className="button danger" type="button" onClick={cancel}>
+                  Cancelar execução
+                </button>
+              )}
+            </div>
           </div>
           <Suspense
             fallback={
@@ -110,6 +143,36 @@ export function Lab() {
           >
             <GraphView graph={graph} tpe={preset === 'tpe'} highlight={highlight} />
           </Suspense>
+          {hasResults && (
+            <div className="quick-results" role="group" aria-label="Tamanho das cliques">
+              {algorithmIds.map((id) => {
+                const result = results[id]
+                const count = result?.clique?.length
+                const cardinality =
+                  count === undefined
+                    ? 'sem resultado'
+                    : `${count} ${count === 1 ? 'vértice' : 'vértices'}`
+                const partial = result?.status === 'interrupted'
+                return (
+                  <button
+                    className="quick-result"
+                    key={id}
+                    type="button"
+                    disabled={count === undefined}
+                    aria-pressed={focus === id && count !== undefined}
+                    aria-label={`${algorithmNames[id]}, ${cardinality}${partial ? ', clique parcial' : ''}`}
+                    onClick={() => choose(id)}
+                  >
+                    <span>
+                      {algorithmNames[id]}
+                      {partial && <small>Parcial</small>}
+                    </span>
+                    <strong>{count ?? '—'}</strong>
+                  </button>
+                )
+              })}
+            </div>
+          )}
           <div className="trace">
             {focused?.clique ? (
               <>
@@ -154,9 +217,14 @@ export function Lab() {
                   ))}
               </>
             ) : (
-              <p>Selecione um resultado para destacar a clique e percorrer as etapas.</p>
+              <p>
+                {hasResults
+                  ? 'Selecione uma clique para percorrer as etapas.'
+                  : 'Execute os algoritmos para comparar as cliques.'}
+              </p>
             )}
           </div>
+          {runFromGraph && runFeedback}
         </section>
       </div>
       <section className="panel run-panel" aria-labelledby="execution">
@@ -168,7 +236,7 @@ export function Lab() {
           <button
             className="button subtle"
             type="button"
-            disabled={running || Object.keys(results).length === 0}
+            disabled={running || !hasResults}
             onClick={() => {
               clear()
               choose(null)
@@ -190,17 +258,11 @@ export function Lab() {
               {algorithmNames[id]}
             </button>
           ))}
-          <button
-            className="button primary"
-            type="button"
-            disabled={running}
-            onClick={() => execute(algorithmIds)}
-          >
-            Executar todos
-          </button>
-          <button className="button danger" type="button" disabled={!running} onClick={cancel}>
-            Cancelar execução
-          </button>
+          {running && !runFromGraph && (
+            <button className="button danger" type="button" onClick={cancel}>
+              Cancelar execução
+            </button>
+          )}
         </div>
         <details className="run-config">
           <summary>Limites de execução</summary>
@@ -239,18 +301,7 @@ export function Lab() {
             </label>
           </fieldset>
         </details>
-        <p className="execution-status" role="status">
-          {running
-            ? 'Executando em segundo plano…'
-            : Object.keys(results).length
-              ? 'Resultados atualizados.'
-              : ''}
-        </p>
-        {(notice || error) && (
-          <p className="error" role="alert">
-            {notice || error}
-          </p>
-        )}
+        {!runFromGraph && runFeedback}
         <ResultsTable results={results} focus={focus} onFocus={choose} />
       </section>
     </>

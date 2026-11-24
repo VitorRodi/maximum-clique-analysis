@@ -18,9 +18,9 @@ Prepare o computador com `npm ci`. Antes de apresentar, rode `npm run build` e `
 ## Demonstração
 
 1. Confirme a instância **Exemplo do TPE**, com nove vértices e doze arestas.
-2. Clique em **Executar todos** e observe as cardinalidades 4, 3 e 4. O ótimo certificado é 4.
-3. Selecione **Guloso** na tabela. Use **Ver etapas** para inspecionar X, A e B. Mostre a qualidade de 75%.
-4. Selecione **Busca local** na tabela, abra o rastro e avance duas vezes. A etapa intermediária troca X por C. A terceira insere D e destaca K₄.
+2. Clique em **Executar todos** junto ao grafo e observe as cardinalidades 4, 3 e 4. O ótimo certificado é 4.
+3. Selecione **Guloso** na comparação abaixo do grafo. Use **Ver etapas** para inspecionar X, A e B. Na tabela detalhada, mostre a qualidade de 75%.
+4. Selecione **Busca local** na comparação, abra o rastro e avance duas vezes. A etapa intermediária troca X por C. A terceira insere D e destaca K₄.
 5. Abra **Comparação experimental**, mantenha p = 50% e n = 20, e compare medianas em escala logarítmica. Ajuste n para 200 e explique por que a coluna de qualidade fica sem valor.
 6. Se houver tempo, gere um grafo completo aleatório de 24 vértices com densidade de 100%. Em **Limites de execução**, eleve o máximo de vértices da força bruta para 24. Inicie e cancele. Observe o estado e volte ao TPE pelo seletor.
 

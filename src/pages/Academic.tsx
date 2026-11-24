@@ -1,3 +1,5 @@
+import tpeGraph from '../assets/grafo-tpe.png'
+
 const bibliography = [
   'CAVIQUE, Luís; REGO, César; THEMIDO, Isabel. Estruturas de vizinhança e procura local no problema da clique máxima. Investigação Operacional, v. 22, p. 1–18, 2002.',
   'GIBBONS, Luana E. et al. Continuous characterizations of the maximum clique problem. DIMACS Technical Report 96-09, 1996.',
@@ -8,24 +10,38 @@ const bibliography = [
 
 export function Overview() {
   return (
-    <article className="reading">
+    <article className="reading overview">
       <div className="page-heading">
-        <h1>Visão geral</h1>
+        <h1>Problema da Clique Máxima</h1>
         <p>Análise e Complexidade de Algoritmos · Ciência da Computação · UNOCHAPECÓ</p>
       </div>
-      <section>
-        <h2>Problema da Clique Máxima</h2>
-        <p>
-          Em um grafo simples e não direcionado, uma clique é um conjunto de vértices ligados dois a
-          dois. O objetivo é encontrar uma clique de maior cardinalidade, representada por ω(G).
-        </p>
-        <p>
-          O laboratório complementa o TPE com implementações, visualização de decisões e medições
-          reproduzíveis do custo e da qualidade de três estratégias.
-        </p>
-        <a className="button primary inline-button" href="#laboratorio">
-          Abrir laboratório
-        </a>
+      <section className="overview-intro" aria-labelledby="objetivo">
+        <div>
+          <h2 id="objetivo">Objetivo do estudo</h2>
+          <p>
+            Uma clique é um conjunto de vértices ligados dois a dois. Queremos encontrar a clique de
+            maior cardinalidade, representada por ω(G).
+          </p>
+          <p>
+            O laboratório permite comparar as cliques e o tempo de execução de três algoritmos no mesmo
+            grafo.
+          </p>
+          <a className="button primary inline-button" href="#laboratorio">
+            Abrir laboratório
+          </a>
+        </div>
+        <figure className="overview-figure">
+          <img
+            src={tpeGraph}
+            width={507}
+            height={470}
+            alt="Grafo com nove vértices. A, B, C e D estão destacados e ligados dois a dois."
+          />
+          <figcaption>
+            <strong>Figura 1 do TPE.</strong> Clique máxima{' '}
+            <span className="whitespace-nowrap">{'{A, B, C, D}'}</span>.
+          </figcaption>
+        </figure>
       </section>
       <section>
         <h2>Algoritmos disponíveis</h2>

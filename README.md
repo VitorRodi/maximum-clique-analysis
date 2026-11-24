@@ -21,7 +21,7 @@ npm ci
 npm run dev
 ```
 
-Abra o endereço local exibido pelo Vite. No laboratório, a instância inicial é o **Exemplo do TPE**. Clique em **Executar todos**, selecione **Busca local** na tabela e abra **Ver etapas** para acompanhar a troca. Após instalar as dependências, os recursos funcionam via loopback sem conexão externa.
+Abra o endereço local exibido pelo Vite. No laboratório, a instância inicial é o **Exemplo do TPE**. Clique em **Executar todos** junto ao grafo, selecione **Busca local** na comparação de tamanhos e abra **Ver etapas** para acompanhar a troca. Após instalar as dependências, os recursos funcionam via loopback sem conexão externa.
 
 ```bash
 npm run test
