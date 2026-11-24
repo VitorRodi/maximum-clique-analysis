@@ -61,9 +61,11 @@ export function GraphSettings({
     try {
       if (file.size > 2_000_000) throw new Error('Selecione um JSON de até 2 MB.')
       const text = await file.text()
-      update(() => ({ graph: Graph.from(JSON.parse(text)), name: 'Grafo importado', preset: '' }))
+      const imported = Graph.from(JSON.parse(text))
+      update(() => ({ graph: imported, name: 'Grafo importado', preset: '' }))
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Não foi possível ler o arquivo.')
+      if (cause instanceof SyntaxError) setError('O arquivo contém JSON inválido.')
+      else setError(cause instanceof Error ? cause.message : 'Não foi possível ler o arquivo.')
     } finally {
       setImporting(false)
     }
