@@ -41,7 +41,15 @@ export class Graph {
   }
 
   hasEdge(a: number, b: number) {
-    return a >= 0 && b >= 0 && a < this.size && b < this.size && this.#matrix[a * this.size + b] === 1
+    return (
+      Number.isInteger(a) &&
+      Number.isInteger(b) &&
+      a >= 0 &&
+      b >= 0 &&
+      a < this.size &&
+      b < this.size &&
+      this.#matrix[a * this.size + b] === 1
+    )
   }
 
   degree(index: number) {
