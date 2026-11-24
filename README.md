@@ -8,7 +8,7 @@ Universidade Comunitária da Região de Chapecó (UNOCHAPECÓ) · Ciência da Co
 
 ## Contexto e objetivo
 
-O projeto complementa o [TPE teórico](docs/academic/TPE.pdf) com três implementações didáticas, um laboratório de grafos e uma avaliação experimental reproduzível. O objetivo é comparar validade, maximalidade, garantia de ótimo, custo e qualidade das estratégias em instâncias idênticas.
+O projeto reúne o TPE teórico, três implementações didáticas, um laboratório de grafos e uma avaliação experimental reproduzível. O objetivo é comparar validade, maximalidade, garantia de ótimo, custo e qualidade das estratégias em instâncias idênticas. [Relatório integrado em PDF](docs/academic/Relatorio_Integrado_Clique_Maxima.pdf)
 
 Dado um grafo simples e não direcionado G = (V, E), uma clique é um conjunto C ⊆ V cujos vértices distintos são adjacentes dois a dois. Uma clique **maximal** não pode receber outro vértice. Uma clique **máxima** tem a maior cardinalidade ω(G) e é sempre maximal. CLIQUE, a pergunta se ω(G) ≥ k, é NP-completa pela verificação do certificado e pela redução de 3-SAT. Encontrar a clique máxima é NP-difícil.
 
@@ -134,7 +134,7 @@ Os tempos dependem do hardware, das sementes e do estado de execução do JavaSc
 
 O exemplo do TPE mostrou que a estratégia gulosa pode estabilizar em uma clique maximal menor que a máxima e que uma troca pode habilitar uma inserção. O benchmark mediu a diferença de custo e mostrou casos em que essa vizinhança melhora o guloso. O resultado exato é necessário para quantificar o desvio em cada instância.
 
-[Relatório Markdown](docs/academic/relatorio-implementacao.md) · [DOCX](docs/academic/relatorio-implementacao.docx) · [PDF](docs/academic/relatorio-implementacao.pdf) · [Roteiro de apresentação](docs/presentation-guide.md) · [Autorrevisão](docs/code-review.md)
+[TPE teórico original](docs/academic/TPE.pdf) · [Roteiro de apresentação](docs/presentation-guide.md) · [Autorrevisão](docs/code-review.md)
 
 ## Referências
 

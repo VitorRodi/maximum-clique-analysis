@@ -20,7 +20,7 @@ Revisão das alterações do MaxClique realizada durante as etapas de desenvolvi
 - Fluxo e tipos. A matriz e os algoritmos são importáveis sem React. A interface entrega uma cópia do grafo ao Worker e ignora mensagens de tarefas substituídas. A consulta de um vértice selecionado fica vinculada à instância em que ele foi selecionado.
 - Dados. Cruzados tamanho da amostra, estados, validades, indicador de ótimo e contagens nas exportações. Os tempos foram medidos com o runner Node.js e validados em seu ambiente. Os resultados do navegador aparecem em área própria.
 - Repositório. Verificados dependências travadas, links locais dos documentos, revisão das alterações e passos de Actions para instalação, tipos, lint, testes e build. A etapa de testes tornou-se incondicional após a inicialização da suíte.
-- Documentos. Conferidos a igualdade SHA-256 da cópia do TPE, o conteúdo do sumário, a figura derivada do benchmark, a numeração e o formato do relatório complementar.
+- Documentos. Conferidos a igualdade SHA-256 da cópia do TPE, o conteúdo do sumário, a figura derivada do benchmark, a numeração e o formato da versão complementar. Após a revisão, a entrega passou a usar o [relatório integrado](academic/Relatorio_Integrado_Clique_Maxima.pdf), com 16 páginas.
 
 ## Limites da revisão
 
