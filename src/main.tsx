@@ -1,8 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import { App } from './App'
 import './styles.css'
 
-createRoot(document.getElementById('root')!).render(
-  <main className="p-8">
-    <h1>MaxClique — Análise de Algoritmos</h1>
-  </main>,
-)
+createRoot(document.getElementById('root')!).render(<App />)
