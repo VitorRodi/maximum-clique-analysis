@@ -4,23 +4,22 @@ import { Lab } from './pages/Lab'
 
 const Comparison = lazy(() => import('./pages/Comparison'))
 const tabs = {
-  'visao-geral': 'Visão geral',
   laboratorio: 'Laboratório',
   comparacao: 'Comparação experimental',
-  teoria: 'Fundamentação',
+  'visao-geral': 'Sobre o trabalho',
 } as const
-type Tab = keyof typeof tabs
+type Tab = keyof typeof tabs | 'teoria'
 
 function currentTab(): Tab {
   const hash = window.location.hash.slice(1)
-  return Object.hasOwn(tabs, hash) ? (hash as Tab) : 'laboratorio'
+  return hash === 'teoria' || Object.hasOwn(tabs, hash) ? (hash as Tab) : 'laboratorio'
 }
 export function App() {
   const [tab, setTab] = useState(currentTab)
   useEffect(() => {
     function navigate() {
       setTab(currentTab())
-      if (Object.hasOwn(tabs, window.location.hash.slice(1))) window.scrollTo(0, 0)
+      window.scrollTo(0, 0)
     }
     window.addEventListener('hashchange', navigate)
     return () => window.removeEventListener('hashchange', navigate)
@@ -45,7 +44,11 @@ export function App() {
           </a>
           <nav aria-label="Navegação principal">
             {Object.entries(tabs).map(([id, label]) => (
-              <a key={id} href={`#${id}`} aria-current={id === tab ? 'page' : undefined}>
+              <a
+                key={id}
+                href={`#${id}`}
+                aria-current={id === (tab === 'teoria' ? 'visao-geral' : tab) ? 'page' : undefined}
+              >
                 {label}
               </a>
             ))}

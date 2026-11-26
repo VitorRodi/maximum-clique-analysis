@@ -162,11 +162,9 @@ nav a[aria-current] {
   margin-top: 9px;
   color: var(--muted);
 }
-.lab-layout {
-  display: grid;
-  grid-template-columns: 285px minmax(0, 1fr);
-  align-items: stretch;
-  gap: 19px;
+.lab-shell {
+  max-width: 1080px;
+  margin-inline: auto;
 }
 .panel {
   background: var(--white);
@@ -188,12 +186,8 @@ nav a[aria-current] {
   font-size: 0.85rem;
   margin-top: 4px;
 }
-.controls > h2 {
-  padding: 17px 17px 14px;
-  border-bottom: 1px solid var(--line);
-  font-size: 1.11rem;
-}
 .controls fieldset {
+  max-width: 620px;
   min-width: 0;
   border: 0;
   padding: 0 17px;
@@ -475,6 +469,13 @@ summary:hover {
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
+.lab-certification {
+  border-top: 1px solid var(--line);
+  padding: 8px 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
 .trace {
   margin-top: auto;
   min-height: 57px;
@@ -494,8 +495,15 @@ summary:hover {
   min-height: 32px;
 }
 
-.run-panel {
-  margin-top: 19px;
+.lab-options {
+  margin-top: 10px;
+}
+.lab-options > summary {
+  padding: 11px 20px;
+  font-size: 0.9rem;
+}
+.lab-options[open] > summary {
+  border-bottom: 1px solid var(--line);
 }
 .run-actions {
   display: flex;
@@ -504,15 +512,12 @@ summary:hover {
   flex-wrap: wrap;
   padding: 13px 20px 8px;
 }
-.run-config {
-  padding: 4px 20px 8px;
-}
 .limit-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   max-width: 800px;
-  padding-top: 7px;
+  padding: 7px 20px 16px;
 }
 .error {
   color: #8d2b35;
@@ -524,11 +529,6 @@ summary:hover {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.82rem;
-}
-.result-context {
-  padding: 8px 20px 11px;
-  color: var(--muted);
-  font-size: 0.85rem;
 }
 .table-scroll {
   overflow-x: auto;
@@ -589,8 +589,15 @@ table small {
 .experiment-controls {
   padding: 16px 20px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 240px));
   gap: 15px;
+}
+.experiment-metrics {
+  grid-column: 1 / -1;
+}
+.experiment-metrics select {
+  max-width: 240px;
+  margin-top: 7px;
 }
 .experiment-charts {
   display: grid;
@@ -654,6 +661,13 @@ table small {
   border: 1px solid var(--line);
   background: var(--white);
 }
+.overview-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 17px;
+}
 .overview-figure img {
   display: block;
   width: min(100%, 226px);
@@ -692,6 +706,9 @@ table small {
 }
 .inline-button {
   margin-top: 17px;
+}
+.academic-link {
+  display: inline-block;
 }
 .definition-list div {
   display: grid;
@@ -748,10 +765,6 @@ table small {
   nav a {
     padding-block: 9px 11px;
   }
-  .lab-layout {
-    grid-template-columns: 245px minmax(0, 1fr);
-    gap: 13px;
-  }
   .experiment-charts {
     grid-template-columns: 1fr;
   }
@@ -767,13 +780,6 @@ table small {
   }
   .page-wrap {
     padding-top: 24px;
-  }
-  .lab-layout {
-    display: flex;
-    flex-direction: column;
-  }
-  .graph-panel {
-    order: -1;
   }
   .graph-stage {
     height: 264px;

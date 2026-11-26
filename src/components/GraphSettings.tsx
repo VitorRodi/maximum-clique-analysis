@@ -83,8 +83,8 @@ export function GraphSettings({
   }
 
   return (
-    <aside className="panel controls" aria-labelledby="instance-title">
-      <h2 id="instance-title">Configurar instância</h2>
+    <details className="panel lab-options controls">
+      <summary>Outros grafos</summary>
       <fieldset disabled={disabled || importing}>
         <div className="control-section">
           <label htmlFor="preset">Grafos predefinidos</label>
@@ -229,6 +229,6 @@ export function GraphSettings({
           {error}
         </p>
       )}
-    </aside>
+    </details>
   )
 }
