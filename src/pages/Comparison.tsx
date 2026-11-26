@@ -148,16 +148,6 @@ export default function Comparison() {
       </div>
       <div className="panel experiment-controls">
         <label>
-          Métrica dos gráficos
-          <select value={metric} onChange={(e) => setMetric(e.target.value as Metric)}>
-            {Object.entries(metrics).map(([key, label]) => (
-              <option value={key} key={key}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
           Densidade nominal
           <select value={density} onChange={(e) => setDensity(Number(e.target.value))}>
             {metadata.densities.map((p) => (
@@ -177,6 +167,20 @@ export default function Comparison() {
             ))}
           </select>
         </label>
+        <details className="experiment-metrics">
+          <summary>Métrica dos gráficos</summary>
+          <select
+            aria-label="Métrica dos gráficos"
+            value={metric}
+            onChange={(e) => setMetric(e.target.value as Metric)}
+          >
+            {Object.entries(metrics).map(([key, label]) => (
+              <option value={key} key={key}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </details>
       </div>
       <div className="experiment-charts">
         <ComparisonChart

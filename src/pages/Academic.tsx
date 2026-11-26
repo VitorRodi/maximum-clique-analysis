@@ -26,9 +26,14 @@ export function Overview() {
             O laboratório permite comparar as cliques e o tempo de execução de três algoritmos no mesmo
             grafo.
           </p>
-          <a className="button primary inline-button" href="#laboratorio">
-            Abrir laboratório
-          </a>
+          <div className="overview-links">
+            <a className="button primary" href="#laboratorio">
+              Abrir laboratório
+            </a>
+            <a className="link-button" href="#teoria">
+              Fundamentação teórica
+            </a>
+          </div>
         </div>
         <figure className="overview-figure">
           <img
@@ -89,6 +94,9 @@ export function Theory() {
       <div className="page-heading">
         <h1>Fundamentação teórica</h1>
         <p>Clique, redução de 3-SAT e limites das estratégias implementadas.</p>
+        <a className="link-button inline-button academic-link" href="#visao-geral">
+          Sobre o trabalho
+        </a>
       </div>
       <section>
         <h2>Clique e otimalidade</h2>
